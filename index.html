@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puro Açaí Maraponga — Leitura Executiva Jun/Jul/Ago 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#FAF6F3;
+    --surface:#FFFFFF;
+    --ink:#2B1B34;
+    --ink-soft:#5B4A66;
+    --ink-faint:#8A7A96;
+    --pos:#D9791F;
+    --pos-soft:#F3DCC0;
+    --neg:#9C3B44;
+    --neg-soft:#EFD6D8;
+    --mid:#7C5490;
+    --mid-soft:#E7DCEE;
+    --line:#E6DCE9;
+    --sand:#F1E7D9;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.num-xl,.num-lg{font-family:'Fraunces',serif;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 32px;}
+
+  /* ---- MASTHEAD ---- */
+  .masthead{
+    background:var(--ink);
+    color:#F4ECF4;
+    padding:56px 0 44px;
+    border-bottom:6px solid var(--pos);
+  }
+  .masthead .eyebrow{
+    color:#C9AED6;
+    font-size:14px;
+    letter-spacing:.02em;
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .masthead h1{
+    font-size:40px;
+    font-weight:600;
+    margin:0 0 14px;
+    max-width:780px;
+    line-height:1.12;
+  }
+  .masthead p{
+    color:#D9C7E0;
+    font-size:16px;
+    max-width:620px;
+    margin:0;
+  }
+  .masthead .meta{
+    margin-top:28px;
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    font-size:13px;
+    color:#B79FC4;
+  }
+  .masthead .meta b{color:#F4ECF4;font-weight:600;}
+
+  /* ---- KPI STRIP ---- */
+  .kpis{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    margin:-1px 0 0;
+    border-bottom:1px solid var(--line);
+  }
+  .kpi{background:var(--surface);padding:26px 24px;}
+  .kpi .label{font-size:12.5px;color:var(--ink-faint);font-weight:600;margin-bottom:8px;}
+  .kpi .val{font-size:29px;font-weight:600;color:var(--ink);}
+  .kpi .sub{font-size:13px;margin-top:6px;color:var(--ink-soft);}
+  .kpi .sub.pos{color:var(--pos);font-weight:600;}
+  .kpi .sub.neg{color:var(--neg);font-weight:600;}
+
+  /* ---- SECTIONS ---- */
+  section{padding:52px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{margin-bottom:28px;max-width:680px;}
+  .section-num{font-size:13px;color:var(--pos);font-weight:700;margin-bottom:6px;}
+  h2{font-size:26px;font-weight:600;margin:0 0 10px;color:var(--ink);}
+  .section-head p{color:var(--ink-soft);font-size:15.5px;margin:0;}
+
+  .callout{
+    background:var(--sand);
+    border-left:4px solid var(--pos);
+    padding:18px 22px;
+    border-radius:2px;
+    font-size:15px;
+    color:var(--ink);
+    margin:22px 0;
+  }
+  .callout b{color:var(--ink);}
+
+  .chart-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 24px 12px;
+    margin-top:18px;
+  }
+  .chart-card h3{font-size:16px;font-weight:600;margin:0 0 4px;}
+  .chart-card .chart-sub{font-size:13px;color:var(--ink-faint);margin-bottom:16px;}
+  .chart-wrap{position:relative;height:320px;}
+  .chart-wrap.tall{height:400px;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:800px){.two-col{grid-template-columns:1fr;} .kpis{grid-template-columns:1fr 1fr;}}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:14px;}
+  th{
+    text-align:left;padding:10px 12px;border-bottom:2px solid var(--ink);
+    font-weight:600;color:var(--ink-soft);font-size:12.5px;
+  }
+  td{padding:10px 12px;border-bottom:1px solid var(--line);}
+  tr:last-child td{border-bottom:none;}
+  .num{text-align:right;font-variant-numeric:tabular-nums;}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;
+  }
+  .tag.pos{background:var(--pos-soft);color:#8A4E10;}
+  .tag.neg{background:var(--neg-soft);color:var(--neg);}
+  .tag.mid{background:var(--mid-soft);color:var(--mid);}
+
+  .reco-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px;}
+  @media (max-width:800px){.reco-grid{grid-template-columns:1fr;}}
+  .reco{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px;}
+  .reco .reco-tag{font-size:11px;font-weight:700;color:var(--pos);letter-spacing:.02em;margin-bottom:8px;}
+  .reco h4{margin:0 0 8px;font-size:16px;font-weight:600;}
+  .reco p{margin:0;font-size:14px;color:var(--ink-soft);}
+
+  /* ---- WATER SECTION ---- */
+  .water-section{background:var(--ink);color:#F4ECF4;}
+  .water-section .section-num{color:#7FD0D9;}
+  .water-section h2{color:#F4ECF4;}
+  .water-section .section-head p{color:#C9B7D3;}
+  .water-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
+  @media (max-width:800px){.water-kpis{grid-template-columns:1fr 1fr;}}
+  .wkpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:20px;}
+  .wkpi .label{font-size:12px;color:#B79FC4;font-weight:600;margin-bottom:8px;}
+  .wkpi .val{font-size:24px;font-weight:600;font-family:'Fraunces',serif;}
+  .water-section .chart-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);}
+  .water-section .chart-card h3{color:#F4ECF4;}
+  .water-section .chart-card .chart-sub{color:#B79FC4;}
+  .verdict{
+    background:rgba(217,121,31,.14);
+    border:1px solid rgba(217,121,31,.4);
+    border-radius:6px;
+    padding:22px 24px;
+    margin-top:24px;
+  }
+  .verdict h4{margin:0 0 10px;font-size:15px;color:#F0B366;font-weight:700;}
+  .verdict p{margin:0 0 10px;font-size:14.5px;color:#EDE3F0;}
+  .verdict p:last-child{margin-bottom:0;}
+  .limitation{
+    margin-top:16px;background:rgba(255,255,255,.06);border-left:3px solid #7FD0D9;
+    padding:14px 18px;border-radius:2px;font-size:13.5px;color:#C9B7D3;
+  }
+
+  footer{padding:36px 0 48px;font-size:12.5px;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Relatório executivo · BI comercial</p>
+    <h1>Puro Açaí Maraponga — leitura de vendas de junho a agosto de 2026</h1>
+    <p>Análise consolidada dos três meses para orientar decisões de operação, mix de produto e campanhas comerciais.</p>
+    <div class="meta">
+      <span><b>Loja</b> Puro Açaí Maraponga [16]</span>
+      <span><b>Período</b> 01/06/2026 a 31/08/2026</span>
+      <span><b>Fonte</b> Relatório Detalhado de Vendas (Linx Degust)</span>
+    </div>
+  </div>
+</div>
+
+<div class="kpis wrap" style="max-width:1100px;margin:0 auto;padding:0;">
+  <div class="kpi">
+    <div class="label">FATURAMENTO — AGOSTO</div>
+    <div class="val">R$ 136.966,69</div>
+    <div class="sub neg">−0,61% vs. junho (base normal)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">FATURAMENTO — JULHO</div>
+    <div class="val">R$ 143.788,69</div>
+    <div class="sub pos">+4,34% vs. junho — mês de férias</div>
+  </div>
+  <div class="kpi">
+    <div class="label">MODELO SELF-SERVICE POR PESO</div>
+    <div class="val">88,6%</div>
+    <div class="sub">do faturamento é 1 produto — Self-Service — vendido em 7 embalagens</div>
+  </div>
+  <div class="kpi">
+    <div class="label">VOLUME AUTOSSERVIÇO — AGO</div>
+    <div class="val">2.032 kg</div>
+    <div class="sub pos">+0,49% vs. junho (kg vendido)</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="s1">
+  <div class="section-head">
+    <p class="section-num">01 — Panorama</p>
+    <h2>Agosto não caiu. Julho é que subiu.</h2>
+    <p>Comparando os três meses lado a lado, o quadro muda de figura: agosto está praticamente no mesmo patamar de junho. A "queda" de agosto só aparece quando comparada a julho — e julho é mês de férias, com mais gente na loja presencialmente.</p>
+  </div>
+
+  <div class="callout">
+    <b>Leitura confirmada com a operação:</b> julho concentra alta de fluxo por ser período de férias escolares — mais clientes atendidos presencialmente explica o pico. Agosto retoma o padrão normal de demanda, não representa perda de mercado.
+  </div>
+
+  <div class="chart-card">
+    <h3>Faturamento mensal</h3>
+    <div class="chart-sub">Valores em R$ — presencial (cartão) + delivery</div>
+    <div class="chart-wrap"><canvas id="chartFaturamento"></canvas></div>
+  </div>
+</section>
+
+<section id="s1b">
+  <div class="section-head">
+    <p class="section-num">02 — Presencial vs. Delivery</p>
+    <h2>Em julho, quem sai de férias vai à loja — não pede delivery</h2>
+    <p>Separando o faturamento por canal, fica claro o que impulsiona julho: a venda presencial sobe 6,3% (mais gente circulando na loja no período de férias), enquanto o delivery cai 12,7% no mesmo mês. Os dois canais se movem em direções opostas.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <h3>Faturamento por canal</h3>
+      <div class="chart-sub">Presencial (cartão) vs. Delivery, em R$</div>
+      <div class="chart-wrap"><canvas id="chartCanal"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Participação de cada canal no total</h3>
+      <div class="chart-sub">% do faturamento mensal</div>
+      <div class="chart-wrap"><canvas id="chartCanalShare"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Leitura:</b> presencial vai de R$ 123.622,97 (jun) a R$ 131.401,17 (jul, +6,3%) e volta a R$ 124.886,79 em agosto — praticamente igual a junho (+1,0%). Delivery faz o caminho inverso: R$ 14.184,10 (jun) → R$ 12.387,50 (jul, −12,7%) → R$ 12.079,90 (ago). O cliente de férias troca o pedido em casa pela ida à loja — é substituição de canal, não perda de demanda.
+  </div>
+</section>
+
+<section id="s2">
+  <div class="section-head">
+    <p class="section-num">03 — Embalagens, não produtos</p>
+    <h2>Existe 1 produto — o Self-Service — vendido em 7 embalagens</h2>
+    <p>Correção de conceito: Tigela, Copo Papel, Copo 700, Copo 500, Copo 300, Isopor 500 e Isopor 1kg <b>não são produtos</b> — são embalagens. O produto de verdade é o Self-Service: o cliente monta o próprio mix com mais de 8 cremes (açaí, cupuaçu, ninho e outros) e mais de 70 toppings/complementos, e paga por peso, na embalagem que escolher no caixa. O isopor, além do peso, ainda gera uma taxa fixa de R$ 1,00 pela embalagem (seção 04).</p>
+  </div>
+
+  <div class="chart-card">
+    <h3>Volume consolidado do Self-Service — todas as embalagens</h3>
+    <div class="chart-sub">Kg vendidos por mês, somando as 7 embalagens (preço cheio + promoção)</div>
+    <div class="chart-wrap"><canvas id="chartKgTotal"></canvas></div>
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="chart-card">
+      <h3>Kg por embalagem escolhida</h3>
+      <div class="chart-sub">Como o cliente distribui a escolha de embalagem</div>
+      <div class="chart-wrap"><canvas id="chartKgFormato"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Preço médio por kg</h3>
+      <div class="chart-sub">Estável nos 3 meses — não há indício de reprecificação</div>
+      <div class="chart-wrap"><canvas id="chartPrecoKg"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Achado-chave:</b> o preço por kg fica entre R$ 59,20 e R$ 59,84 nas embalagens grandes (Tigela, Copo 700, Isopor 500, Isopor 1kg) nos três meses — sem oscilação relevante. Toda a variação de receita do Self-Service vem de <b>volume</b>, não de preço do mix.
+  </div>
+</section>
+
+<section id="s2c">
+  <div class="section-head">
+    <p class="section-num">04 — Precificação</p>
+    <h2>Subir a taxa da embalagem de isopor para R$ 1,50 vale a pena?</h2>
+    <p>A taxa de R$ 1,00 pela embalagem de isopor é cobrada à parte do peso, em toda venda embalada em Isopor 500 ou Isopor 1kg. Simulando o mesmo volume de embalagens vendidas, só que a R$ 1,50:</p>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <h3>Receita da taxa: R$ 1,00 (atual) vs. R$ 1,50 (simulado)</h3>
+      <div class="chart-sub">Mesmo volume de embalagens de isopor vendidas</div>
+      <div class="chart-wrap"><canvas id="chartTaxaEmbalagem"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Margem de segurança do reajuste</h3>
+      <div class="chart-sub">Quanto o volume de embalagens de isopor poderia cair sem perder receita</div>
+      <div class="chart-wrap"><canvas id="chartBreakeven"></canvas></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Mês</th><th class="num">Embalagens vendidas</th><th class="num">Receita a R$ 1,00</th><th class="num">Receita simulada a R$ 1,50</th><th class="num">Ganho incremental</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Junho</td><td class="num">1.937</td><td class="num">R$ 1.937,00</td><td class="num">R$ 2.905,50</td><td class="num">+R$ 968,50</td></tr>
+      <tr><td>Julho</td><td class="num">2.182</td><td class="num">R$ 2.182,00</td><td class="num">R$ 3.273,00</td><td class="num">+R$ 1.091,00</td></tr>
+      <tr><td>Agosto</td><td class="num">2.069</td><td class="num">R$ 2.069,00</td><td class="num">R$ 3.103,50</td><td class="num">+R$ 1.034,50</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <b>Sim, faz diferença — e com risco baixo.</b> A R$ 1,50, a receita dessa taxa cresce 50% mantendo o mesmo volume: cerca de <b>+R$ 1.000/mês</b>, ~R$ 12 mil/ano, praticamente sem custo adicional (é taxa de serviço, não produto). Mais importante: o volume de embalagens de isopor precisaria cair <b>mais de 33%</b> para essa linha passar a arrecadar menos do que arrecada hoje a R$ 1,00 — uma margem de segurança grande para um reajuste de só R$ 0,50, que dificilmente muda o comportamento de quem já monta um mix de R$ 20–60 no self-service. Ponto de atenção: como Tigela e Copo Papel não têm taxa de embalagem, o reajuste pode empurrar clientes sensíveis a preço para essas opções — vale aplicar e acompanhar o gráfico "Kg por embalagem escolhida" (seção 03) nos meses seguintes para confirmar que não há migração relevante.
+  </div>
+</section>
+
+<section id="s3">
+  <div class="section-head">
+    <p class="section-num">05 — De onde veio a diferença</p>
+    <h2>Ponte de faturamento: julho → agosto</h2>
+    <p>A diferença de R$ 6.821,98 entre julho e agosto se explica quase inteiramente por 5 itens — e é parcialmente compensada por outros 5.</p>
+  </div>
+  <div class="chart-card">
+    <h3>Waterfall — do faturamento de julho ao de agosto</h3>
+    <div class="chart-sub">Barras vermelhas = perdas · barras laranjas = ganhos</div>
+    <div class="chart-wrap tall"><canvas id="chartWaterfall"></canvas></div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="section-head">
+    <p class="section-num">06 — Concentração</p>
+    <h2>10 linhas de venda respondem por 97,6% da receita</h2>
+    <p>Ranking de agosto por participação no faturamento total — embalagens do Self-Service, formatos de iFood e itens avulsos, lado a lado.</p>
+  </div>
+  <div class="chart-card">
+    <h3>Top 10 linhas de venda — agosto</h3>
+    <div class="chart-sub">% do faturamento total do mês</div>
+    <div class="chart-wrap tall"><canvas id="chartTop10"></canvas></div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="section-head">
+    <p class="section-num">07 — Canal delivery</p>
+    <h2>iFood não perdeu força — mudou de tamanho</h2>
+    <p>O número de pedidos caiu de 274 (jun) para 241 (ago), mas o faturamento do canal recuou só 2,1% de julho a agosto — porque o mix migrou de 500g para 300g e 1kg, formatos com ticket maior por pedido.</p>
+  </div>
+  <div class="chart-card">
+    <h3>Pedidos do iFood por tamanho</h3>
+    <div class="chart-sub">Unidades vendidas por mês, por formato</div>
+    <div class="chart-wrap"><canvas id="chartIfood"></canvas></div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="section-head">
+    <p class="section-num">08 — Promoções</p>
+    <h2>Menos desconto concedido, não menos venda</h2>
+    <p>A receita das linhas de promoção caiu 56% de julho a agosto, enquanto a receita total do Self-Service por peso caiu só 5,3%. Isso é consistente com migração de vendas promocionais para preço cheio — sinal positivo de margem.</p>
+  </div>
+  <div class="chart-card">
+    <h3>Receita: preço cheio vs. promoção</h3>
+    <div class="chart-sub">Self-Service por peso, todas as embalagens</div>
+    <div class="chart-wrap"><canvas id="chartPromo"></canvas></div>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="section-head">
+    <p class="section-num">09 — Recomendações</p>
+    <h2>Onde agir a partir desta leitura</h2>
+    <p>Sugestões apoiadas diretamente nos padrões identificados nos três meses.</p>
+  </div>
+  <div class="reco-grid">
+    <div class="reco">
+      <div class="reco-tag">ESTOQUE</div>
+      <h4>Confirmar se a queda do Isopor 500 e Copo 700 em agosto foi demanda ou ruptura</h4>
+      <p>Isopor 500 (−R$ 3.225) e Copo 700 (−R$ 1.267) foram os maiores responsáveis pela queda Jul→Ago. Vale cruzar com o controle de estoque/compras para descartar falta de embalagem como causa.</p>
+    </div>
+    <div class="reco">
+      <div class="reco-tag">SAZONALIDADE</div>
+      <h4>Planejar compras e escala de julho com base no padrão de férias</h4>
+      <p>O volume por peso sobe cerca de 6,5% em julho frente a um mês normal. Dimensionar estoque de embalagens e escala de equipe com esse fator, evitando ruptura no pico.</p>
+    </div>
+    <div class="reco">
+      <div class="reco-tag">DELIVERY</div>
+      <h4>Revisar o posicionamento do iFood 500g no cardápio do app</h4>
+      <p>O 500g perdeu quase metade dos pedidos (139→65) enquanto 300g e 1kg cresceram. Vale checar preço, destaque visual e combos desse tamanho específico no aplicativo.</p>
+    </div>
+    <div class="reco">
+      <div class="reco-tag">GESTÃO</div>
+      <h4>Passar a registrar cupom/pedido, não só linha de venda</h4>
+      <p>O relatório atual não permite calcular ticket médio nem fluxo de clientes. Um relatório por cupom destravaria indicadores essenciais para próximas leituras.</p>
+    </div>
+    <div class="reco">
+      <div class="reco-tag">CANAL</div>
+      <h4>Redirecionar esforço de mídia paga do delivery para a loja em julho</h4>
+      <p>Em época de férias, o cliente troca delivery por ida à loja (−12,7% no canal). Faz sentido reduzir investimento em mídia de delivery nesse período e reforçar equipe/caixa presencial, que já capta esse fluxo naturalmente.</p>
+    </div>
+    <div class="reco">
+      <div class="reco-tag">PRECIFICAÇÃO</div>
+      <h4>Testar a taxa de embalagem de isopor a R$ 1,50</h4>
+      <p>Ganho estimado de ~R$ 1.000/mês com o mesmo volume, e margem de segurança de 33% de queda antes de perder receita nessa linha. Rodar como teste de 30–60 dias, acompanhando se a fatia do isopor no mix de embalagens recua.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="water-section">
+  <div class="wrap">
+    <section style="padding-top:52px;">
+      <div class="section-head">
+        <p class="section-num">10 — Seção exclusiva</p>
+        <h2>Campanha de comissão da água: está compensando?</h2>
+        <p>Comissão de R$ 1,00 por unidade paga ao caixa, ativa desde junho, para Água com e sem gás vendidas presencialmente (cartão). Vendas de água pelo iFood não entram na comissão.</p>
+      </div>
+
+      <div class="water-kpis">
+        <div class="wkpi">
+          <div class="label">UNIDADES VENDIDAS — AGO</div>
+          <div class="val">253</div>
+        </div>
+        <div class="wkpi">
+          <div class="label">RECEITA BRUTA — AGO</div>
+          <div class="val">R$ 1.291,50</div>
+        </div>
+        <div class="wkpi">
+          <div class="label">CUSTO DE COMISSÃO — AGO</div>
+          <div class="val">R$ 253,00</div>
+        </div>
+        <div class="wkpi">
+          <div class="label">RECEITA LÍQUIDA — AGO</div>
+          <div class="val">R$ 1.038,50</div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Água (com + sem gás): receita bruta, comissão e volume</h3>
+        <div class="chart-sub">Barras: receita líquida + comissão empilhadas (R$) · Linha: unidades vendidas</div>
+        <div class="chart-wrap"><canvas id="chartAgua"></canvas></div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Mês</th><th class="num">Unidades</th><th class="num">Receita bruta</th><th class="num">Comissão paga</th><th class="num">Receita líquida</th><th class="num">Comissão / receita</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Junho</td><td class="num">176</td><td class="num">R$ 900,50</td><td class="num">R$ 176,00</td><td class="num">R$ 724,50</td><td class="num">19,5%</td></tr>
+          <tr><td>Julho</td><td class="num">172</td><td class="num">R$ 876,50</td><td class="num">R$ 172,00</td><td class="num">R$ 704,50</td><td class="num">19,6%</td></tr>
+          <tr><td>Agosto</td><td class="num">253</td><td class="num">R$ 1.291,50</td><td class="num">R$ 253,00</td><td class="num">R$ 1.038,50</td><td class="num">19,6%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="verdict">
+        <h4>Leitura</h4>
+        <p><b>A comissão está economicamente sustentável:</b> consome sempre entre 19,5% e 19,6% da receita bruta da água, mês a mês — uma proporção estável, sem tendência de piorar. O preço da água (R$ 5,00 sem gás e R$ 5,50 com gás) não mudou nos três meses.</p>
+        <p><b>O volume está crescendo:</b> unidades vendidas subiram de 176 (jun) para 253 (ago), alta de 43,8%, e a receita líquida (já descontada a comissão) foi de R$ 724,50 para R$ 1.038,50 — alta de 43,4%. Vale notar que julho, mesmo com mais gente na loja por causa das férias, teve leve queda de volume frente a junho (176→172) — o salto expressivo acontece só em agosto.</p>
+        <p><b>O que ainda falta para uma resposta definitiva:</b> como a campanha já estava ativa em todos os três meses da base, não há aqui um período "sem comissão" para isolar o efeito causal do incentivo — o crescimento de agosto pode refletir o próprio esforço do caixa, calor/sazonalidade, ou os dois. Também não temos o custo de compra da água (COGS): a "receita líquida" mostrada é receita menos comissão, não a margem final do produto.</p>
+      </div>
+
+      <div class="limitation">
+        Para fechar essa análise com certeza, seriam úteis: (1) dados de venda de água de antes de junho, como referência sem campanha; e (2) o custo de compra por unidade de água, para calcular a margem líquida real após a comissão.
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    Relatório gerado a partir dos relatórios "Vendas por Pessoa" (Linx Degust) de junho, julho e agosto de 2026 — Puro Açaí Maraponga [16]. Totais conferidos linha a linha contra os totais informados em cada relatório.
+  </footer>
+</div>
+
+<script>
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#5B4A66';
+
+const ink = '#2B1B34';
+const pos = '#D9791F';
+const neg = '#9C3B44';
+const mid = '#7C5490';
+const midSoft = '#C7AED6';
+const line = '#E6DCE9';
+
+function fmtBRL(v){
+  return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+// 1. Faturamento mensal
+new Chart(document.getElementById('chartFaturamento'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho (férias)','Agosto'],
+    datasets: [{
+      data: [137807.04, 143788.69, 136966.69],
+      backgroundColor: [mid, pos, mid],
+      borderRadius: 4,
+      barThickness: 90
+    }]
+  },
+  options: {
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:c=>fmtBRL(c.raw)}} },
+    scales: {
+      y: { beginAtZero:false, min:130000, ticks:{callback:v=>'R$ '+(v/1000)+'k'}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 1b. Presencial vs Delivery — receita
+new Chart(document.getElementById('chartCanal'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho (férias)','Agosto'],
+    datasets: [
+      {label:'Presencial (cartão)', data:[123622.97,131401.17,124886.79], backgroundColor:ink, borderRadius:4},
+      {label:'Delivery', data:[14184.10,12387.50,12079.90], backgroundColor:pos, borderRadius:4}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}} },
+    scales: {
+      y: { ticks:{callback:v=>'R$ '+(v/1000)+'k'}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 1c. Participação por canal
+new Chart(document.getElementById('chartCanalShare'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho (férias)','Agosto'],
+    datasets: [
+      {label:'Presencial (cartão)', data:[89.71,91.39,91.18], backgroundColor:ink, borderRadius:4},
+      {label:'Delivery', data:[10.29,8.61,8.82], backgroundColor:pos, borderRadius:4}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}} },
+    scales: {
+      y: { stacked:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:line} },
+      x: { stacked:true, grid:{display:false} }
+    }
+  }
+});
+
+// 2. Kg total consolidado
+new Chart(document.getElementById('chartKgTotal'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho (férias)','Agosto'],
+    datasets: [{
+      data: [2022.68, 2154.26, 2032.28],
+      backgroundColor: [mid, pos, mid],
+      borderRadius: 4,
+      barThickness: 90
+    }]
+  },
+  options: {
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw.toLocaleString('pt-BR')+' kg'}} },
+    scales: {
+      y: { beginAtZero:false, min:1900, ticks:{callback:v=>v+' kg'}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 3. Kg por formato (stacked)
+new Chart(document.getElementById('chartKgFormato'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'Tigela', data:[743.98,748.73,739.68], backgroundColor:ink},
+      {label:'Isopor 500', data:[723.01,779.28,718.14], backgroundColor:mid},
+      {label:'Copo 700', data:[365.79,340.38,312.15], backgroundColor:pos},
+      {label:'Isopor 1kg', data:[144.18,189.69,183.69], backgroundColor:midSoft},
+      {label:'Copo Papel', data:[41.46,88.38,74.80], backgroundColor:'#C9915A'},
+      {label:'Copo 300', data:[3.14,5.32,1.89], backgroundColor:'#D8CBE0'},
+      {label:'Copo 500', data:[1.12,2.48,1.93], backgroundColor:'#EADCC8'}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} },
+    scales: {
+      y: { stacked:true, ticks:{callback:v=>v+' kg'}, grid:{color:line} },
+      x: { stacked:true, grid:{display:false} }
+    }
+  }
+});
+
+// 4. Preço médio por kg
+new Chart(document.getElementById('chartPrecoKg'), {
+  type: 'line',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'Tigela', data:[59.59,59.42,59.70], borderColor:ink, backgroundColor:ink, tension:.3},
+      {label:'Isopor 500', data:[59.74,59.64,59.72], borderColor:mid, backgroundColor:mid, tension:.3},
+      {label:'Copo 700', data:[59.71,59.60,59.80], borderColor:pos, backgroundColor:pos, tension:.3},
+      {label:'Isopor 1kg', data:[59.22,59.25,59.65], borderColor:'#C9915A', backgroundColor:'#C9915A', tension:.3}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} },
+    scales: {
+      y: { min:55, max:63, ticks:{callback:v=>'R$ '+v}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 4b. Taxa de embalagem — atual vs simulada
+new Chart(document.getElementById('chartTaxaEmbalagem'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'Atual (R$ 1,00)', data:[1937.00,2182.00,2069.00], backgroundColor:mid, borderRadius:4},
+      {label:'Simulado (R$ 1,50)', data:[2905.50,3273.00,3103.50], backgroundColor:pos, borderRadius:4}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}}, tooltip:{callbacks:{label:c=>fmtBRL(c.raw)}} },
+    scales: {
+      y: { ticks:{callback:v=>'R$ '+v}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 4c. Breakeven — volume atual vs volume minimo necessario
+new Chart(document.getElementById('chartBreakeven'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'Volume atual (embalagens)', data:[1937,2182,2069], backgroundColor:mid, borderRadius:4},
+      {label:'Volume mínimo para não perder receita', data:[1291.33,1454.67,1379.33], backgroundColor:neg, borderRadius:4}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}}, tooltip:{callbacks:{label:c=>Math.round(c.raw)+' embalagens'}} },
+    scales: {
+      y: { ticks:{callback:v=>v}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 5. Waterfall Jul -> Ago
+const wfLabels = ['Julho','Isopor 500','iFood 500g','Copo 700','Tigela Promo','Copo Papel','Outros','iFood 1kg','iFood 300g','Tigela','Água s/gás','Água c/gás','Agosto'];
+const wfData = [
+  [0,143788.67],
+  [140563.17,143788.67],
+  [137388.57,140563.17],
+  [136121.38,137388.57],
+  [135070.34,136121.38],
+  [134410.84,135070.34],
+  [132896.06,134410.84],
+  [132896.06,134363.96],
+  [134363.96,135831.36],
+  [135831.36,136551.69],
+  [136551.69,136856.69],
+  [136856.69,136966.69],
+  [0,136966.69]
+];
+const wfColors = wfData.map((d,i)=>{
+  if(i===0||i===wfData.length-1) return ink;
+  return d[1]-d[0] < 0 || (d[1]<d[0]) ? neg : pos;
+});
+// fix color logic using actual delta sign (from,to)
+const wfDeltas = [null,-3225.50,-3174.60,-1267.19,-1051.04,-659.50,-1514.78,1467.90,1467.40,720.33,305.00,110.00,null];
+const wfColors2 = wfDeltas.map(d => d===null ? ink : (d<0?neg:pos));
+
+new Chart(document.getElementById('chartWaterfall'), {
+  type: 'bar',
+  data: {
+    labels: wfLabels,
+    datasets: [{
+      data: wfData,
+      backgroundColor: wfColors2,
+      borderRadius: 3,
+      barPercentage: 0.65
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>{
+        const d = wfDeltas[c.dataIndex];
+        if(d===null) return fmtBRL(c.raw[1]);
+        return (d>0?'+':'')+fmtBRL(d);
+      }}}
+    },
+    scales: {
+      x: { min:128000, ticks:{callback:v=>'R$ '+(v/1000)+'k'}, grid:{color:line} },
+      y: { grid:{display:false} }
+    }
+  }
+});
+
+// 6. Top 10 linhas de venda
+new Chart(document.getElementById('chartTop10'), {
+  type: 'bar',
+  data: {
+    labels: ['Tigela','Isopor 500','Copo 700','Isopor 1kg','iFood 1kg','Copo Papel','iFood 300g','iFood 500g','Embalagem Isopor','Água s/gás'],
+    datasets: [{
+      data: [31.70,30.83,13.52,7.84,3.83,3.25,2.35,2.04,1.51,0.73],
+      backgroundColor: [ink,mid,pos,'#C9915A',midSoft,'#D8CBE0','#EADCC8',mid,pos,ink],
+      borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw+'% do faturamento'}} },
+    scales: {
+      x: { ticks:{callback:v=>v+'%'}, grid:{color:line} },
+      y: { grid:{display:false} }
+    }
+  }
+});
+
+// 7. iFood mix
+new Chart(document.getElementById('chartIfood'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'1kg', data:[77,54,75], backgroundColor:ink},
+      {label:'500g', data:[143,139,65], backgroundColor:mid},
+      {label:'300g', data:[54,55,101], backgroundColor:pos}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}} },
+    scales: {
+      y: { ticks:{callback:v=>v+' pedidos'}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 8. Promo vs Normal
+new Chart(document.getElementById('chartPromo'), {
+  type: 'bar',
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {label:'Preço cheio', data:[117749.41,123734.14,119420.11], backgroundColor:mid, borderRadius:4},
+      {label:'Promoção', data:[2840.07,4419.13,1926.54], backgroundColor:pos, borderRadius:4}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10}} },
+    scales: {
+      y: { ticks:{callback:v=>'R$ '+(v/1000)+'k'}, grid:{color:line} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// 9. Água — receita/comissão/volume
+new Chart(document.getElementById('chartAgua'), {
+  data: {
+    labels: ['Junho','Julho','Agosto'],
+    datasets: [
+      {type:'bar', label:'Receita líquida', data:[724.50,704.50,1038.50], backgroundColor:'#F0B366', borderRadius:4, stack:'a'},
+      {type:'bar', label:'Comissão paga', data:[176.00,172.00,253.00], backgroundColor:'#7FD0D9', borderRadius:4, stack:'a'},
+      {type:'line', label:'Unidades vendidas', data:[176,172,253], borderColor:'#F4ECF4', backgroundColor:'#F4ECF4', yAxisID:'y1', tension:.3}
+    ]
+  },
+  options: {
+    plugins: { legend:{position:'bottom', labels:{boxWidth:10, color:'#EDE3F0'}} },
+    scales: {
+      y: { stacked:true, ticks:{color:'#C9B7D3', callback:v=>'R$ '+v}, grid:{color:'rgba(255,255,255,.08)'} },
+      y1: { position:'right', ticks:{color:'#C9B7D3'}, grid:{display:false} },
+      x: { ticks:{color:'#C9B7D3'}, grid:{display:false} }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
