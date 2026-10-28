@@ -1,0 +1,341 @@
+<title>Escala Puro Açaí Maraponga</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: relatório de coluna única, faixa de números no topo, tabelas e escala em painéis roláveis */
+:root{
+  --bg:#f6f5f8; --surface:#ffffff; --ink:#1e1a23; --muted:#655e6d; --line:#e2dde8;
+  --acai:#4a1d5c; --acai-soft:#efe5f4; --leaf:#2d7349; --leaf-soft:#e3f1e7; --warn:#9a6413; --warn-soft:#f8ecd8;
+  --bad:#a63c33; --bad-soft:#f8e3e0; --sun:#fff7e6;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131016; --surface:#1c1820; --ink:#ece8f0; --muted:#a49dab; --line:#2f2935;
+  --acai:#cfa6e2; --acai-soft:#2a2030; --leaf:#72c495; --leaf-soft:#18291f; --warn:#e3ad55; --warn-soft:#2d2415;
+  --bad:#e5837a; --bad-soft:#2f1b19; --sun:#261f14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131016; --surface:#1c1820; --ink:#ece8f0; --muted:#a49dab; --line:#2f2935;
+  --acai:#cfa6e2; --acai-soft:#2a2030; --leaf:#72c495; --leaf-soft:#18291f; --warn:#e3ad55; --warn-soft:#2d2415;
+  --bad:#e5837a; --bad-soft:#2f1b19; --sun:#261f14; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;padding-block:40px 64px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.6rem;font-weight:800}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acai)}
+header{display:flex;flex-direction:column;gap:16px}
+.lead{font-size:1.15rem;max-width:62ch}
+section{display:flex;flex-direction:column;gap:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fig b{font-family:var(--f-display);font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums}
+.fig span{font-size:.85rem;color:var(--muted)}
+.fig.hl{border-color:var(--acai);background:var(--acai-soft)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;white-space:nowrap}
+tr.rec td{background:var(--acai-soft)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.72rem;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.p-good{background:var(--leaf-soft);color:var(--leaf)} .p-warn{background:var(--warn-soft);color:var(--warn)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-acai{background:var(--acai);color:var(--surface)}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.cols>*{min-width:0}
+ul.clean{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:8px;max-width:68ch}
+.note{font-size:.88rem;color:var(--muted)}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:560px;height:auto}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:.88rem;border:0;background:transparent;color:var(--ink);padding:8px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--acai);color:var(--surface)}
+.seg button:focus-visible{outline:2px solid var(--acai);outline-offset:-2px}
+.grid td{text-align:center;font-size:.8rem;white-space:nowrap;padding:8px 6px}
+.grid td:first-child,.grid th:first-child{text-align:left;font-weight:600;font-size:.88rem;padding-left:12px}
+.grid th.sun,.grid td.sun{background:var(--sun)}
+.r{display:inline-block;min-width:84px;padding:4px 6px;border-radius:6px;font-weight:500}
+.r-buf{background:var(--acai-soft);color:var(--acai)}
+.r-sg{background:var(--leaf-soft);color:var(--leaf)}
+.r-ref{background:var(--acai);color:var(--surface)}
+.r-del{background:var(--line);color:var(--ink)}
+.r-off{color:var(--muted)}
+.r-dia{background:var(--warn-soft);color:var(--warn)}
+.suns{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.sunc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sunc .t{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.dots{display:flex;gap:4px}
+.dot{width:16px;height:16px;border-radius:50%}
+.d-clt{background:var(--acai)} .d-dia{background:transparent;border:2px solid var(--warn)}
+.sunc small{font-size:.75rem;color:var(--muted);line-height:1.35}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--muted);align-items:center}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+footer{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+footer a{color:var(--acai)}
+@media (max-width:760px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.cols{grid-template-columns:1fr}.suns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Puro Açaí Maraponga · Fortaleza · estudo de escala para o fim da 6x1</div>
+  <h1>Domingo cheio, sábado à noite reforçado, mesmo custo de hoje</h1>
+  <p class="lead">A escala que melhor equilibra custo e atendimento mantém Caixa e Cozinha em 12x36, passa Fábio, Régia e Marcelo para 5x2 e traz <strong>dois Volantes de fim de semana em tempo parcial</strong>. A loja paga praticamente o mesmo que hoje, cumpre a nova lei e quase dobra a presença de equipe própria aos domingos.</p>
+</header>
+
+<section aria-label="Números da escala recomendada">
+  <div class="figs">
+    <div class="fig hl"><b>R$ 22.806</b><span>custo total de mão de obra por mês (hoje: R$ 22.812)</span></div>
+    <div class="fig"><b>72%</b><span>das vagas de apoio no domingo com funcionários da casa (hoje: ~44%)</span></div>
+    <div class="fig"><b>3 a 4</b><span>funcionários no apoio no sábado à noite (hoje: 2 + diarista)</span></div>
+    <div class="fig"><b>3,6</b><span>diárias por mês (hoje: ~20)</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>O que a escala precisa cobrir</h2>
+  <div class="cols">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <p>A loja abre das 12:00 às 23:00, todos os dias, e a equipe fica das 11:30 às 23:30. Caixa e Cozinha são obrigatórios em todas as horas. Buffet e serviços gerais podem ser absorvidos pelo Caixa no movimento calmo, mas não à noite nem no fim de semana.</p>
+      <p>Nas folgas do caixa delivery, o Caixa assume o delivery, como já acontece hoje. Por isso o delivery não entra na conta de diaristas.</p>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>Posto</th><th>Seg a Sex</th><th>Sábado</th><th>Domingo</th></tr></thead>
+      <tbody>
+        <tr><td>Caixa</td><td>1, 11:30–23:30</td><td>1</td><td>1</td></tr>
+        <tr><td>Cozinha</td><td>1, 11:30–23:30</td><td>1</td><td>1</td></tr>
+        <tr><td>Buffet (tarde e noite)</td><td>1</td><td>2</td><td>2</td></tr>
+        <tr><td>Serviços gerais (tarde e noite)</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>Caixa delivery</td><td>1 (Caixa cobre na folga)</td><td>1</td><td>1</td></tr>
+      </tbody></table></div>
+  </div>
+</section>
+
+<section>
+  <h2>Como a loja funciona hoje</h2>
+  <p>Hoje a loja roda com 7 funcionários registrados e cerca de 20 diárias por mês. O núcleo de Caixa e Cozinha já está bem resolvido em 12x36. O apoio da tarde e da noite trabalha em 6x1, com todos folgando na segunda.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Quem</th><th>Função</th><th>Regime</th><th>Horário</th><th>Folgas</th></tr></thead>
+    <tbody>
+      <tr><td>Eudinea · Grupo 1</td><td>Caixa</td><td>12x36</td><td>11:30–23:30</td><td>dia sim, dia não</td></tr>
+      <tr><td>Ozarina · Grupo 1</td><td>Cozinha</td><td>12x36</td><td>11:30–23:30</td><td>dia sim, dia não</td></tr>
+      <tr><td>Alessandra · Grupo 2</td><td>Caixa</td><td>12x36</td><td>11:30–23:30</td><td>dia sim, dia não</td></tr>
+      <tr><td>Jardel · Grupo 2</td><td>Cozinha</td><td>12x36</td><td>11:30–23:30</td><td>dia sim, dia não</td></tr>
+      <tr><td>Fábio</td><td>Serviços gerais</td><td>6x1</td><td>15:30–23:30</td><td>toda segunda + último domingo do mês</td></tr>
+      <tr><td>Régia</td><td>Buffet</td><td>6x1</td><td>15:30–23:30</td><td>toda segunda + 2 domingos por mês</td></tr>
+      <tr><td>Marcelo</td><td>Caixa delivery</td><td>6x1</td><td>15:30–23:30</td><td>toda segunda + 1 domingo por mês</td></tr>
+      <tr><td>Diaristas</td><td>Buffet e serviços gerais</td><td>avulsas, R$ 150/dia</td><td>15:30–23:30</td><td>~20 diárias/mês: segundas, 2º buffet no fim de semana e domingos de folga</td></tr>
+    </tbody></table></div>
+  <ul class="clean">
+    <li><span class="pill p-bad">lei</span> A 6x1 de Fábio, Régia e Marcelo fica proibida a partir de 15/12/2026.</li>
+    <li><span class="pill p-warn">domingo</span> Fábio pode passar 4 a 5 domingos seguidos trabalhando, acima do limite de 3 semanas, e os domingos da Régia precisam ser alternados para cumprir a regra quinzenal das mulheres.</li>
+    <li><span class="pill p-warn">segunda</span> Com todo o apoio de folga no mesmo dia, toda segunda à noite depende de 2 diaristas.</li>
+    <li><span class="pill p-warn">fim de semana</span> O 2º buffet de sábado e domingo é sempre diarista, então o sábado à noite tem só 2 funcionários da casa no apoio.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>O que muda</h2>
+  <p>O núcleo fica como está. A mudança acontece no apoio: as folgas deixam de cair todas na segunda, o horário começa uma hora mais cedo e dois Volantes de fim de semana assumem o lugar da maior parte das diárias.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Item</th><th>Hoje</th><th>Com a escala F2</th></tr></thead>
+    <tbody>
+      <tr><td>Caixa e Cozinha</td><td>12x36, 11:30–23:30</td><td>Igual; acordo de 12x36 formalizado por escrito e intervalo do Caixa coberto pelo Marcelo</td></tr>
+      <tr><td>Fábio</td><td>6x1, 15:30–23:30, 42h/semana</td><td>5x2, 14:30–23:30, 40h/semana; folga domingo 2 vezes a cada 6 semanas</td></tr>
+      <tr><td>Régia</td><td>6x1, 15:30–23:30, 42h/semana</td><td>5x2, 14:30–23:30, 40h/semana; folga domingo sim, domingo não</td></tr>
+      <tr><td>Marcelo</td><td>6x1, 15:30–23:30</td><td>5x2, 14:30–23:30; folga domingo 2 vezes a cada 6 semanas, com o Caixa cobrindo o delivery</td></tr>
+      <tr><td>Volantes</td><td>não existem</td><td>2 contratos de tempo parcial, 21h, 3 dias por semana, 15:30–23:30, focados em fim de semana e segunda</td></tr>
+      <tr><td>Diaristas</td><td>~20 por mês</td><td>3,6 por mês, só aos domingos, em rodízio de 3 pessoas</td></tr>
+      <tr><td>Segunda à noite</td><td>2 diaristas</td><td>funcionários da casa</td></tr>
+      <tr><td>Sábado à noite</td><td>2 da casa + 1 diarista</td><td>3 a 4 da casa</td></tr>
+      <tr><td>Domingo</td><td>~44% das vagas com equipe da casa; nunca completo</td><td>72% com equipe da casa; completo em 2 de cada 6 domingos</td></tr>
+      <tr><td>Reforço da tarde</td><td>apoio só a partir das 15:30</td><td>apoio a partir das 14:30, sem custo extra</td></tr>
+      <tr><td>Custo mensal</td><td>R$ 22.812</td><td>R$ 22.806</td></tr>
+      <tr><td>Situação legal</td><td><span class="pill p-bad">6x1 proibida em 15/12/2026</span></td><td><span class="pill p-good">cumpre EC 141 e regras de domingo</span></td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2>As regras que a escala respeita</h2>
+  <p>A Emenda Constitucional 141/2026 acaba com a 6x1 a partir de <strong>15/12/2026</strong>: dois repousos por semana, jornada máxima de 42h e, a partir de 16/12/2027, 40h. As regras de domingo da CLT continuam valendo e foram as que mais pesaram no desenho.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Regra</th><th>Base legal</th><th>Como a escala cumpre</th></tr></thead>
+    <tbody>
+      <tr><td>Dois repousos por semana, fim da 6x1</td><td>EC 141/2026</td><td>Apoio em 5x2; Volantes em 3 dias; núcleo 12x36 com 3 a 4 dias livres</td></tr>
+      <tr><td>Jornada máxima 42h (dez/2026) e 40h (dez/2027)</td><td>EC 141/2026</td><td>Apoio 40h; Volantes 21h; núcleo média 42h, ajuste previsto para dez/2027</td></tr>
+      <tr><td>Mulheres: folga em domingo a cada 15 dias</td><td>CLT art. 386; posição do TST</td><td>Régia folga domingo sim, domingo não; Caixas e Cozinheira alternam domingo pela própria 12x36</td></tr>
+      <tr><td>Homens: folga em domingo ao menos a cada 3 semanas</td><td>Lei 10.101/2000, art. 6º (regra do comércio, a mais exigente)</td><td>Fábio e Marcelo folgam 2 domingos a cada 6 semanas, nunca mais de 2 domingos seguidos trabalhados</td></tr>
+      <tr><td>Nunca mais de 6 dias seguidos</td><td>TST, OJ 410 da SDI-1</td><td>Máximo de 6 no ciclo, conferido pessoa a pessoa</td></tr>
+      <tr><td>11h entre jornadas e 35h no repouso semanal</td><td>CLT arts. 66 e 67; Súmula 110 TST</td><td>Saída 23:30, entrada 14:30 ou 15:30: 15h a 16h; uma folga isolada dá 39h</td></tr>
+      <tr><td>Intervalo de 1h acima de 6h</td><td>CLT art. 71</td><td>Intervalo escalonado entre 17:00 e 18:30; Marcelo rende o Caixa</td></tr>
+      <tr><td>Tempo parcial até 30h, salário proporcional</td><td>CLT art. 58-A; OJ 358 TST</td><td>Volantes com 21h (3 dias de 7h) e contrato escrito</td></tr>
+      <tr><td>Feriado trabalhado em dobro ou com folga compensatória</td><td>Lei 605/1949, art. 9º; Súmula 146 TST; CLT art. 59-A</td><td>Provisão de cerca de R$ 525/mês para o apoio; 12x36 já compensa</td></tr>
+      <tr><td>Contratação sem critério de sexo</td><td>Lei 9.029/1995; CLT art. 373-A</td><td>A escala supõe a regra mais restrita (domingo alternado) para os Volantes, então funciona com qualquer pessoa contratada</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2>Seis escalas comparadas</h2>
+  <p>Cada composição de equipe foi otimizada num ciclo de 6 semanas (o menor que acomoda a regra quinzenal e a de 3 semanas) com prioridade para domingo, depois sábado à noite, depois custo. O gráfico mostra o que cada real a mais compra em domingo com gente da casa.</p>
+  <div class="chart" role="img" aria-label="Custo mensal versus percentual de vagas de domingo com funcionários próprios">
+    <svg id="frontier" viewBox="0 0 760 380"></svg>
+  </div>
+  <div class="legend"><span><i style="background:var(--acai)"></i>escala recomendada</span><span><i style="background:var(--muted)"></i>outras escalas legais</span><span><i style="background:transparent;border:2px solid var(--bad)"></i>escala atual (proibida a partir de 15/12/2026)</span></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Escala</th><th>Apoio da casa</th><th class="num">Custo/mês</th><th class="num">vs hoje</th><th class="num">Diárias/mês</th><th class="num">Domingo com equipe da casa</th><th>Domingos 100% da casa</th><th>Sábado à noite</th></tr></thead>
+    <tbody>
+      <tr><td>Atual</td><td>Fábio e Régia em 6x1</td><td class="num">R$ 22.812</td><td class="num">—</td><td class="num">20,3</td><td class="num">44%</td><td>nenhum</td><td>2 + diarista</td></tr>
+      <tr><td>B′</td><td>+ 1 Volante de 28h (4 dias)</td><td class="num">R$ 22.614</td><td class="num">−R$ 198</td><td class="num">8,7</td><td class="num">56%</td><td>nenhum</td><td>3</td></tr>
+      <tr class="rec"><td><strong>F2 · recomendada</strong></td><td>+ 2 Volantes de fim de semana, 21h (3 dias)</td><td class="num"><strong>R$ 22.806</strong></td><td class="num">−R$ 6</td><td class="num">3,6</td><td class="num">72%</td><td>2 de 6</td><td>3 a 4</td></tr>
+      <tr><td>B</td><td>+ 1 Volante integral (5 dias)</td><td class="num">R$ 22.898</td><td class="num">+R$ 86</td><td class="num">5,8</td><td class="num">56%</td><td>nenhum</td><td>3</td></tr>
+      <tr><td>A</td><td>só Fábio e Régia em 5x2</td><td class="num">R$ 23.434</td><td class="num">+R$ 622</td><td class="num">26,0</td><td class="num">39%</td><td>nenhum</td><td>2 + diarista</td></tr>
+      <tr><td>F3 · domingo forte</td><td>+ 3 Volantes de fim de semana</td><td class="num">R$ 23.954</td><td class="num">+R$ 1.142</td><td class="num">1,4</td><td class="num">89%</td><td>4 de 6</td><td>5</td></tr>
+      <tr><td>F4 · sem diaristas</td><td>+ 4 Volantes de fim de semana</td><td class="num">R$ 25.221</td><td class="num">+R$ 2.409</td><td class="num">0</td><td class="num">100%</td><td>6 de 6</td><td>5</td></tr>
+    </tbody></table></div>
+  <p class="note">Custos no Simples Nacional. No Lucro Presumido a ordem se mantém: F2 sai por R$ 27.565/mês contra R$ 26.962 hoje. Em todas as escalas o Marcelo fica em 5x2 e folga 2 domingos a cada 6 semanas, quando o Caixa cobre o delivery.</p>
+</section>
+
+<section>
+  <h2>Por que dois Volantes de fim de semana</h2>
+  <ul class="clean">
+    <li><strong>O domingo é o gargalo legal.</strong> A Régia só pode trabalhar um domingo sim, outro não, e o Fábio precisa folgar ao menos um a cada três. Um único Volante de 4 ou 5 dias não fecha esses buracos, e a loja cai em domingos com 1 funcionário e 2 diaristas.</li>
+    <li><strong>Duas pessoas de 3 dias valem mais que uma de 5.</strong> Com 21h cada, os dois Volantes custam R$ 3.000/mês juntos e concentram as horas em sábado, domingo e começo de semana. Cada diarista de domingo que sai vira um funcionário a mais no sábado à noite.</li>
+    <li><strong>O custo fica igual ao de hoje.</strong> As diárias caem de ~20 para 3,6 por mês, o que paga os dois contratos parciais.</li>
+    <li><strong>Domingo forte custa R$ 1.148/mês a mais.</strong> F3 põe equipe da casa em 89% das vagas de domingo. Ela se paga se cada domingo gerar cerca de R$ 265 a mais de margem, ou perto de R$ 760 de venda com margem bruta de 35%. Vale testar depois que F2 estiver rodando.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Os seis domingos do ciclo</h2>
+  <div class="toolbar"><div class="seg" role="group" aria-label="Escala exibida">
+    <button type="button" id="b-w2" aria-pressed="true" data-k="W2">F2 · recomendada</button>
+    <button type="button" id="b-w3" aria-pressed="false" data-k="W3">F3 · domingo forte</button>
+  </div></div>
+  <div class="suns" id="suns"></div>
+  <div class="legend"><span><i style="background:var(--acai)"></i>funcionário da casa no buffet ou serviços gerais</span><span><i style="background:transparent;border:2px solid var(--warn)"></i>diarista</span></div>
+</section>
+
+<section>
+  <h2>Escala semana a semana</h2>
+  <p>O ciclo se repete a cada 6 semanas. Caixas e Cozinha seguem a 12x36 atual: Grupo 1 (Eudinea e Ozarina) e Grupo 2 (Alessandra e Jardel) em dias alternados, das 11:30 às 23:30.</p>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Semana do ciclo" id="weeks"></div>
+  </div>
+  <div class="scroll"><table class="grid" id="grid"></table></div>
+  <p class="note">Horários: Fábio, Régia e Marcelo das 14:30 às 23:30 (8h + 1h de intervalo). Volantes e diaristas das 15:30 às 23:30 (7h + 1h). “Reforço” é um funcionário além do mínimo, usado no salão e na reposição no pico de sábado à noite. *Na folga do Marcelo, o Caixa assume o delivery.</p>
+</section>
+
+<section>
+  <h2>Quanto custa cada pessoa</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Quem</th><th>Regime</th><th class="num">Custo total/mês</th></tr></thead>
+    <tbody>
+      <tr><td>Eudinea e Alessandra (Caixa)</td><td>12x36, com quebra de caixa de 10%</td><td class="num">R$ 2.806 cada</td></tr>
+      <tr><td>Ozarina e Jardel (Cozinha)</td><td>12x36</td><td class="num">R$ 2.586 cada</td></tr>
+      <tr><td>Fábio (serviços gerais) e Régia (buffet)</td><td>5x2, 40h</td><td class="num">R$ 2.739 cada</td></tr>
+      <tr><td>Marcelo (caixa delivery)</td><td>5x2, 40h, com quebra de caixa</td><td class="num">R$ 2.960</td></tr>
+      <tr><td>Volante 1 e Volante 2</td><td>tempo parcial, 21h, salário de R$ 870,60</td><td class="num">R$ 1.500 cada</td></tr>
+      <tr><td>Diaristas</td><td>3,6 diárias × R$ 162 (R$ 150 + refeição)</td><td class="num">R$ 585</td></tr>
+      <tr><td><strong>Total</strong></td><td></td><td class="num"><strong>R$ 22.806</strong></td></tr>
+    </tbody></table></div>
+  <p class="note">Premissas: piso SINDGASTRO-CE de R$ 1.658,28 (empresa com até 15 empregados, CCT 2026/2027 CE001453/2026, a confirmar); FGTS, 13º, férias com 1/3 e provisão rescisória somando 33%; adicional noturno de 20% das 22:00 às 23:30 com hora reduzida; vale-transporte de 2 passagens de R$ 5,40 por dia menos 6% do salário; refeição de R$ 12 a R$ 15 por turno; Simples Nacional, com o INSS patronal dentro do DAS. Salário do tempo parcial proporcional a 21h de 40h.</p>
+</section>
+
+<section>
+  <h2>Implantação até 15 de dezembro</h2>
+  <div class="cols">
+    <ol class="clean">
+      <li><strong>Até 10/11:</strong> confirmar com o contador o regime tributário, o piso da CCT 2026/27 e as cláusulas de 12x36, domingos e feriados.</li>
+      <li><strong>Até 20/11:</strong> contratar os dois Volantes em tempo parcial de 21h (contrato escrito, experiência de 45 + 45 dias) e montar um banco de 3 diaristas.</li>
+      <li><strong>1º/12:</strong> assinar aditivos de horário com Fábio, Régia e Marcelo (14:30–23:30, 5x2, salário mantido) e formalizar o acordo de 12x36 e a cobertura do delivery pelo Caixa.</li>
+      <li><strong>A partir de 8/12:</strong> rodar a semana 1 em teste.</li>
+      <li><strong>15/12:</strong> escala nova em vigor.</li>
+    </ol>
+    <ul class="clean">
+      <li><span class="pill p-warn">atenção</span> Trocas de folga entre colegas não podem quebrar a regra do domingo: nada de mulher em 2 domingos seguidos, nem homem em 3.</li>
+      <li><span class="pill p-warn">atenção</span> Diaristas em rodízio, sem a mesma pessoa todo fim de semana, com recibo e retenção de INSS, para não caracterizar vínculo.</li>
+      <li><span class="pill p-warn">dez/2027</span> A 12x36 tem média de 42h e o teto cai para 40h. Saídas: CCT reconhecer o intervalo fora da jornada (média 38,5h) ou pagar 2h extras por semana, cerca de R$ 520/mês no núcleo.</li>
+      <li><span class="pill p-good">bônus</span> Se um Volante contratado for homem, ele pode trabalhar 2 de cada 3 domingos e a cobertura de domingo melhora sem custo.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>Cálculo próprio, outubro de 2026. Estudo de apoio à decisão; não substitui parecer jurídico ou contábil.</p>
+  <p>Fontes: <a href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/saiba-quando-comeca-valer-o-fim-da-escala-6-por-1" target="_blank" rel="noopener">Agência Brasil, EC 141/2026</a> · <a href="https://caltrab.com/fim-da-escala-6x1-ec-141/" target="_blank" rel="noopener">Caltrab, EC 141 para RH</a> · <a href="https://caltrab.com/direito-da-mulher-trabalhadora-folga-aos-domingos-a-cada-15-dias/" target="_blank" rel="noopener">Caltrab, folga dominical</a> · <a href="https://teixeiragomesadvocacia.adv.br/escala-12x36-fim-da-6x1/" target="_blank" rel="noopener">12x36 após a EC 141</a> · <a href="https://carmelitas.com.br/ferramentas/busca-instrumentos-coletivos/instrumento/42e1ece3522f7454" target="_blank" rel="noopener">CCT SINDGASTRO x SINDIREST 2026/2027</a> · <a href="https://sites.diretasistemas.com.br/sites/1784/wp-content/uploads/2026/01/05101226/Tabela-de-Salario-Restaurante-2026.pdf" target="_blank" rel="noopener">Tabela salarial SINDGASTRO 2026</a> · <a href="https://diariodonordeste.verdesmares.com.br/ceara/fortaleza-e-outras-capitais-tem-aumento-da-tarifa-de-onibus-em-2026-1.3723325" target="_blank" rel="noopener">Tarifa de ônibus 2026</a></p>
+</footer>
+</div>
+
+<script>
+const ROLES = {"W2": {"Fábio": [["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["Serv. gerais", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "folga"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "folga"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"]], "Régia": [["folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"], ["folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"], ["folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"]], "Volante 1": [["Buffet", "folga", "folga", "folga", "folga", "2º Buffet", "Buffet"], ["Buffet", "Buffet", "folga", "folga", "folga", "2º Buffet", "folga"], ["Buffet", "Serv. gerais", "folga", "folga", "folga", "folga", "Buffet"], ["Buffet", "Buffet", "folga", "folga", "folga", "2º Buffet", "folga"], ["Buffet", "folga", "folga", "folga", "folga", "2º Buffet", "Buffet"], ["Buffet", "Buffet", "folga", "folga", "folga", "2º Buffet", "folga"]], "Volante 2": [["Serv. gerais", "Serv. gerais", "folga", "folga", "folga", "folga", "2º Buffet"], ["folga", "Serv. gerais", "folga", "folga", "Reforço", "Reforço", "folga"], ["Serv. gerais", "folga", "folga", "folga", "folga", "2º Buffet", "2º Buffet"], ["Serv. gerais", "Serv. gerais", "folga", "folga", "folga", "Reforço", "folga"], ["Serv. gerais", "folga", "folga", "folga", "folga", "Reforço", "2º Buffet"], ["Serv. gerais", "Serv. gerais", "folga", "folga", "folga", "Reforço", "folga"]], "Marcelo": [["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery", "folga*"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["Delivery", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "folga*"]], "Diaristas": [["", "", "", "", "", "", ""], ["", "", "", "", "", "", "2º Buffet + Serv. gerais"], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", "2º Buffet"], ["", "", "", "", "", "", "Serv. gerais"], ["", "", "", "", "", "", "2º Buffet"]]}, "W3": {"Fábio": [["Serv. gerais", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "folga"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "folga"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"], ["folga", "folga", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais", "Serv. gerais"]], "Régia": [["folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"], ["Buffet", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"], ["folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet", "folga"], ["folga", "folga", "Buffet", "Buffet", "Buffet", "Buffet", "Buffet"]], "Volante 1": [["Buffet", "Serv. gerais", "folga", "folga", "folga", "2º Buffet", "folga"], ["Buffet", "folga", "folga", "folga", "folga", "2º Buffet", "2º Buffet"], ["Serv. gerais", "Buffet", "folga", "folga", "folga", "2º Buffet", "folga"], ["Buffet", "folga", "folga", "folga", "folga", "2º Buffet", "2º Buffet"], ["Buffet", "Serv. gerais", "folga", "folga", "folga", "2º Buffet", "folga"], ["Buffet", "folga", "folga", "folga", "folga", "2º Buffet", "2º Buffet"]], "Volante 2": [["folga", "folga", "folga", "folga", "Reforço", "Reforço", "Buffet"], ["Serv. gerais", "Buffet", "folga", "folga", "folga", "Reforço", "folga"], ["folga", "Serv. gerais", "folga", "folga", "folga", "Reforço", "Buffet"], ["Serv. gerais", "folga", "folga", "folga", "Reforço", "Reforço", "folga"], ["Serv. gerais", "folga", "folga", "folga", "folga", "Reforço", "Buffet"], ["Serv. gerais", "Buffet", "folga", "folga", "folga", "Reforço", "folga"]], "Volante 3": [["folga", "folga", "folga", "folga", "Reforço", "Reforço", "2º Buffet"], ["folga", "Serv. gerais", "folga", "folga", "Reforço", "Reforço", "folga"], ["folga", "folga", "folga", "folga", "Reforço", "Reforço", "2º Buffet"], ["folga", "Buffet", "folga", "folga", "Reforço", "Reforço", "folga"], ["folga", "folga", "folga", "folga", "Reforço", "Reforço", "2º Buffet"], ["folga", "Serv. gerais", "folga", "folga", "Reforço", "Reforço", "folga"]], "Marcelo": [["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["Delivery", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "folga*"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"], ["Delivery", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "folga*"], ["folga*", "folga*", "Delivery", "Delivery", "Delivery", "Delivery", "Delivery"]], "Diaristas": [["", "", "", "", "", "", "Serv. gerais"], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", "Serv. gerais"], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]]}};
+const DAYS=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+let K='W2', WK=0;
+function cls(v){ if(!v) return ''; if(v.startsWith('folga')) return 'r-off'; if(v==='Delivery') return 'r-del'; if(v==='Reforço') return 'r-ref'; if(v.includes('Serv')) return 'r-sg'; return 'r-buf'; }
+function renderGrid(){
+  const R=ROLES[K]; let h='<thead><tr><th>Pessoa</th>'+DAYS.map((d,i)=>'<th class="'+(i===6?'sun':'')+'">'+d+'</th>').join('')+'</tr></thead><tbody>';
+  for(const p of Object.keys(R)){
+    h+='<tr><td>'+p+'</td>';
+    R[p][WK].forEach((v,i)=>{
+      let inner;
+      if(p==='Diaristas'){ inner = v ? v.split(' + ').map(x=>'<span class="r r-dia">'+x+'</span>').join('<br>') : '<span class="r r-off">—</span>'; }
+      else inner='<span class="r '+cls(v)+'">'+v+'</span>';
+      h+='<td class="'+(i===6?'sun':'')+'">'+inner+'</td>';
+    });
+    h+='</tr>';
+  }
+  document.getElementById('grid').innerHTML=h+'</tbody>';
+  document.querySelectorAll('#weeks button').forEach((b,i)=>b.setAttribute('aria-pressed', String(i===WK)));
+}
+function renderSuns(){
+  const R=ROLES[K]; let h='';
+  for(let w=0;w<6;w++){
+    const clt=Object.keys(R).filter(p=>p!=='Diaristas'&&p!=='Marcelo'&&R[p][w][6]&&!R[p][w][6].startsWith('folga'));
+    const dia=R['Diaristas'][w][6]? R['Diaristas'][w][6].split(' + ').length:0;
+    const off=Object.keys(R).filter(p=>p!=='Diaristas'&&R[p][w][6]&&R[p][w][6].startsWith('folga')).map(p=>p.replace('Volante ','V'));
+    h+='<div class="sunc"><span class="t">Domingo '+(w+1)+'</span><div class="dots">'+clt.map(()=>'<span class="dot d-clt"></span>').join('')+Array(dia).fill('<span class="dot d-dia"></span>').join('')+'</div><small>'+clt.map(p=>p.replace('Volante ','V')).join(', ')+(dia?' + '+dia+' diarista'+(dia>1?'s':''):'')+'</small><small>Folgam: '+(off.join(', ')||'—')+'</small></div>';
+  }
+  document.getElementById('suns').innerHTML=h;
+}
+function setK(k){ K=k; document.querySelectorAll('[data-k]').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.k===k))); renderSuns(); renderGrid(); }
+document.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>setK(b.dataset.k)));
+const wb=document.getElementById('weeks');
+for(let i=0;i<6;i++){ const b=document.createElement('button'); b.type='button'; b.id='wk'+(i+1); b.textContent='Semana '+(i+1); b.addEventListener('click',()=>{WK=i;renderGrid();}); wb.appendChild(b); }
+setK('W2');
+
+// Frontier chart
+(function(){
+  const pts=[
+    {n:'Atual',c:22812,q:44,t:'cur',dx:10,dy:16},
+    {n:'A',c:23434,q:39,t:'o',dx:10,dy:5},
+    {n:'B′',c:22614,q:56,t:'o',dx:0,dy:24,a:'middle'},
+    {n:'B',c:22898,q:56,t:'o',dx:10,dy:16},
+    {n:'F2 recomendada',c:22806,q:72,t:'rec',dx:14,dy:5},
+    {n:'F3 domingo forte',c:23954,q:89,t:'o',dx:12,dy:5},
+    {n:'F4 sem diaristas',c:25221,q:100,t:'o',dx:-12,dy:20,a:'end'}];
+  const X0=80,X1=730,Y0=30,Y1=320, cmin=22400,cmax=25400, qmin=30,qmax=100;
+  const x=c=>X0+(c-cmin)/(cmax-cmin)*(X1-X0), y=q=>Y1-(q-qmin)/(qmax-qmin)*(Y1-Y0);
+  const ns='http://www.w3.org/2000/svg', svg=document.getElementById('frontier');
+  const el=(t,a,txt)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+  for(let q=40;q<=100;q+=20){ el('line',{x1:X0,x2:X1,y1:y(q),y2:y(q),stroke:'var(--line)'}); el('text',{x:X0-10,y:y(q)+4,'text-anchor':'end','font-size':12,fill:'var(--muted)','font-family':'IBM Plex Mono, monospace'},q+'%'); }
+  for(let c=22500;c<=25000;c+=500){ el('line',{x1:x(c),x2:x(c),y1:Y1,y2:Y1+5,stroke:'var(--muted)'}); el('text',{x:x(c),y:Y1+20,'text-anchor':'middle','font-size':12,fill:'var(--muted)','font-family':'IBM Plex Mono, monospace'},'R$ '+(c/1000).toFixed(1).replace('.',',')+' mil'); }
+  el('line',{x1:X0,x2:X1,y1:Y1,y2:Y1,stroke:'var(--muted)'});
+  el('text',{x:X0,y:16,'font-size':12,fill:'var(--muted)'},'Vagas de apoio no domingo com funcionários da casa');
+  el('text',{x:X1,y:Y1+40,'text-anchor':'end','font-size':12,fill:'var(--muted)'},'Custo total de mão de obra por mês');
+  el('line',{x1:x(22812),x2:x(22812),y1:Y0,y2:Y1,stroke:'var(--bad)','stroke-dasharray':'4 4','stroke-opacity':.6});
+  el('text',{x:x(22812)+6,y:Y0+10,'font-size':11,fill:'var(--bad)'},'custo de hoje');
+  const fr=['B′','F2 recomendada','F3 domingo forte','F4 sem diaristas'].map(n=>pts.find(p=>p.n===n));
+  el('polyline',{points:fr.map(p=>x(p.c)+','+y(p.q)).join(' '),fill:'none',stroke:'var(--acai)','stroke-opacity':.35,'stroke-width':2});
+  pts.forEach(p=>{
+    const fill=p.t==='rec'?'var(--acai)':(p.t==='cur'?'var(--surface)':'var(--muted)');
+    const g=el('circle',{cx:x(p.c),cy:y(p.q),r:p.t==='rec'?8:6,fill,stroke:p.t==='cur'?'var(--bad)':'var(--surface)','stroke-width':2});
+    el('text',{x:x(p.c)+p.dx,y:y(p.q)+p.dy,'text-anchor':p.a||'start','font-size':13,'font-weight':p.t==='rec'?700:500,fill:p.t==='rec'?'var(--acai)':'var(--ink)'},p.n+' · '+p.q+'%');
+  });
+})();
+</script>
